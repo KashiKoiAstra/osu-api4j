@@ -6,6 +6,10 @@ import java.util.Properties;
 public class AuthConfigLoader {
 
     public static AuthConfig load(String resourcePath) {
+        if (resourcePath == null || resourcePath.isBlank()) {
+            throw new IllegalArgumentException("Resource path must be provided and cannot be blank.");
+        }
+
         Properties properties = new Properties();
 
         try (var stream = AuthConfigLoader.class.getClassLoader().getResourceAsStream(resourcePath)) {
