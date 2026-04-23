@@ -1,7 +1,6 @@
 package kashi.koi.model.beatmaps;
 
 import java.time.OffsetDateTime;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
