@@ -1,4 +1,4 @@
-package kashi.koi.auth;
+package kashi.koi.model.beatmaps;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
@@ -6,9 +6,9 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record TokenResponse(
-        Long expiresIn,
-        String tokenType,
-        String accessToken
+public record Failtimes(
+        Integer[] exit,
+        Integer[] fail
 ) {
 }
+

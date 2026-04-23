@@ -1,7 +1,7 @@
 package kashi.koi;
 
-import kashi.koi.api.beatmaps.GetUserBeatmapScoreRequest;
-import kashi.koi.model.beatmaps.BeatmapUserScore;
+import kashi.koi.api.beatmaps.GetBeatmapRequest;
+import kashi.koi.model.beatmaps.BeatmapExtended;
 
 // osu! web api v2 wrapper for Java
 public class Main {
@@ -11,18 +11,16 @@ public class Main {
 
         OsuClient client = OsuClient.createDefault();
 
-        GetUserBeatmapScoreRequest request = GetUserBeatmapScoreRequest.builder()
+        GetBeatmapRequest request = GetBeatmapRequest.builder()
                 .mode("mania")
                 .build();
 
-        BeatmapUserScore response = client.beatmapScores().getUserBeatmapScore(beatmapId, userId, request);
+        BeatmapExtended response = client.beatmap().getBeatmap(beatmapId, request);
 
-        System.out.println("position=" + response.position());
-        if (response.score() != null) {
-            System.out.println("score=" + response.score().totalScore());
-            System.out.println("accuracy=" + String.format("%.2f", response.score().accuracy() * 100) + "%");
-            System.out.println("maxCombo=" + response.score().maxCombo() + "x");
-            System.out.println("pp=" + String.format("%.2f", response.score().pp()));
+        if (response != null) {
+            System.out.println("Beatmap Title: " + response.beatmapset().title());
+            System.out.println("Artist: " + response.beatmapset().artist());
+            System.out.println("Creator: " + response.beatmapset().creator());
         }
     }
 }

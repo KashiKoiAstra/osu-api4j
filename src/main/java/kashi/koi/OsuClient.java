@@ -4,7 +4,9 @@ import java.net.http.HttpClient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import kashi.koi.api.beatmaps.BeatmapScoresApi;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import kashi.koi.api.beatmaps.BeatmapApi;
 import kashi.koi.auth.AuthConfig;
 import kashi.koi.auth.AuthConfigLoader;
 import kashi.koi.auth.OAuthTokenProvider;
@@ -14,10 +16,10 @@ import kashi.koi.http.DefaultApiHttpClient;
 // sdk facade and single entry for all API groups
 public class OsuClient {
 
-    private final BeatmapScoresApi beatmapScoresApi;
+    private final BeatmapApi beatmapApi;
 
-    private OsuClient(BeatmapScoresApi beatmapScoresApi) {
-        this.beatmapScoresApi = beatmapScoresApi;
+    private OsuClient(BeatmapApi beatmapScoresApi) {
+        this.beatmapApi = beatmapScoresApi;
     }
 
     public static OsuClient createDefault() {
@@ -30,11 +32,14 @@ public class OsuClient {
         OAuthTokenProvider tokenProvider = new OAuthTokenProvider(config, httpClient, objectMapper);
         ApiHttpClient apiHttpClient = new DefaultApiHttpClient(config, tokenProvider, httpClient, objectMapper);
 
-        return new OsuClient(new BeatmapScoresApi(apiHttpClient));
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        return new OsuClient(new BeatmapApi(apiHttpClient));
     }
 
-    public BeatmapScoresApi beatmapScores() {
-        return beatmapScoresApi;
+    public BeatmapApi beatmap() {
+        return beatmapApi;
     }
 
 }

@@ -1,13 +1,14 @@
 package kashi.koi.api.beatmaps;
 
 import kashi.koi.http.ApiHttpClient;
+import kashi.koi.model.beatmaps.BeatmapExtended;
 import kashi.koi.model.beatmaps.BeatmapUserScore;
 
-public class BeatmapScoresApi {
+public class BeatmapApi {
 
     private final ApiHttpClient httpClient;
 
-    public BeatmapScoresApi(ApiHttpClient httpClient) {
+    public BeatmapApi(ApiHttpClient httpClient) {
         this.httpClient = httpClient;
     }
 
@@ -25,5 +26,18 @@ public class BeatmapScoresApi {
 
         String path = "/beatmaps/" + beatmapId + "/scores/users/" + userId;
         return httpClient.get(path, effectiveRequest.toQueryParams(), BeatmapUserScore.class);
+    }
+
+    public BeatmapExtended getBeatmap(String beatmapId, GetBeatmapRequest request) {
+        if (beatmapId == null || beatmapId.isEmpty()) {
+            throw new IllegalArgumentException("beatmapId must be a non-empty string");
+        }
+
+        GetBeatmapRequest effectiveRequest = request == null
+                ? GetBeatmapRequest.builder().build()
+                : request;
+
+        String path = "/beatmaps/" + beatmapId;
+        return httpClient.get(path, effectiveRequest.toQueryParams(), BeatmapExtended.class);
     }
 }
