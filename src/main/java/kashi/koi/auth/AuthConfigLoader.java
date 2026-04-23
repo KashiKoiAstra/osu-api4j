@@ -25,9 +25,9 @@ public class AuthConfigLoader {
         );
     }
 
-    // load from resources/data.properties
+    // load from resources/auth.properties
     public static AuthConfig load() {
-        return load("data.properties");
+        return load("auth.properties");
     }
 
     private static String requiredProperty(Properties props, String key) {
