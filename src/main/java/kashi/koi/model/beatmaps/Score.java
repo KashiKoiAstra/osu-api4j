@@ -1,42 +1,48 @@
 package kashi.koi.model.beatmaps;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+/*
+ * very mysterious
+ * the "id" field is said to be Integer in the official docs, but it overflows Integer, so we use Long
+ */
+
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record Score(
-        // snack_case -> camelCase
-        @JsonProperty("accuracy") Float accuracy,
-        @JsonProperty("beatmap_id") Integer beatmapId,
-        @JsonProperty("best_id") Integer bestId,
-        @JsonProperty("build_id") Integer buildId,
-        @JsonProperty("classic_total_score") Integer classicTotalScore,
-        @JsonProperty("ended_at")Timestamp endedAt,
-        @JsonProperty("has_replay") Boolean hasReplay,
-        @JsonProperty("id") Integer id,
-        @JsonProperty("is_perfect_combo") Boolean isPerfectCombo,
-        @JsonProperty("legacy_perfect") Boolean legacyPerfect,
-        @JsonProperty("legacy_score_id") Integer legacyScoreId,
-        @JsonProperty("legacy_total_score") Integer legacyTotalScore,
-        @JsonProperty("max_combo") Integer maxCombo,
-        @JsonProperty("maximum_statistics") ScoreStatistics scoreStatistics,
-        @JsonProperty("mods") Mod[] mods,
-        @JsonProperty("passed") Boolean passed,
-        @JsonProperty("playlist_item_id") Integer playlistItemId,
-        @JsonProperty("pp") Float pp,
-        @JsonProperty("preserve") Boolean preserve,
-        @JsonProperty("processed") Boolean processed,
-        @JsonProperty("rank") String rank,
-        @JsonProperty("ranked") Boolean ranked,
-        @JsonProperty("room_id") Integer roomId,
-        @JsonProperty("ruleset_id") Integer rulesetId,
-        @JsonProperty("started_at") Timestamp startedAt,
-        @JsonProperty("statistics") ScoreStatistics statistics,
-        @JsonProperty("total_score") Integer totalScore,
-        @JsonProperty("type") String type,
-        @JsonProperty("user_id") Integer userId
-        ) {
+        Float accuracy,
+        Integer beatmapId,
+        Integer bestId,
+        Integer buildId,
+        Integer classicTotalScore,
+        OffsetDateTime endedAt,
+        Boolean hasReplay,
+        Long id,
+        Boolean isPerfectCombo,
+        Boolean legacyPerfect,
+        Integer legacyScoreId,
+        Integer legacyTotalScore,
+        Integer maxCombo,
+        ScoreStatistics maximumStatistics,
+        Mod[] mods,
+        Boolean passed,
+        Integer playlistItemId,
+        Float pp,
+        Boolean preserve,
+        Boolean processed,
+        String rank,
+        Boolean ranked,
+        Integer roomId,
+        Integer rulesetId,
+        OffsetDateTime startedAt,
+        ScoreStatistics statistics,
+        Integer totalScore,
+        String type,
+        Integer userId
+){
 }

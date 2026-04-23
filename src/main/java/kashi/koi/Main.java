@@ -19,7 +19,7 @@ public class Main {
 
         System.out.println("position=" + response.position());
         if (response.score() != null) {
-            System.out.println("score=" + response.score().score());
+            System.out.println("score=" + response.score().totalScore());
             System.out.println("accuracy=" + String.format("%.2f", response.score().accuracy() * 100) + "%");
             System.out.println("maxCombo=" + response.score().maxCombo() + "x");
             System.out.println("pp=" + String.format("%.2f", response.score().pp()));

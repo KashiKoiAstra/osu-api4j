@@ -1,14 +1,12 @@
 package kashi.koi.model.beatmaps;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
-// data module
-// attention : camelCase -> snake_case mapping
-
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record BeatmapUserScore(
-        @JsonProperty("position") Integer position,
-        @JsonProperty("score") Score score
-) {
+        Integer position,
+        Score score) {
 }

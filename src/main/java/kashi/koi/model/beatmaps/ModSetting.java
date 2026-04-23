@@ -1,11 +1,13 @@
 package kashi.koi.model.beatmaps;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record ModSetting(
-        @JsonProperty("name") String name,
-        @JsonProperty("value") Object value
+        String name,
+        Object value
 ) {
 }
