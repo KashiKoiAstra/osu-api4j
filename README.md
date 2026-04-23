@@ -1,6 +1,7 @@
 osu-api4j
 
 osu! web api v2 wrapper for Java
+now WIP
 
 you should put your client id and secret in src/main/resources/auth.properties
 
