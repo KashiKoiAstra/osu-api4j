@@ -1,13 +1,12 @@
 package kashi.koi.auth;
 
-// osu! account certificate config
+// https request format
 public record AuthConfig(
         String clientId,
         String clientSecret,
         String tokenUrl,
         String apiBaseUrl,
-        String scope
-) {
+        String scope) {
     public AuthConfig {
         clientId = requireValue(clientId, "clientId");
         clientSecret = requireValue(clientSecret, "clientSecret");
@@ -18,7 +17,7 @@ public record AuthConfig(
 
     private static String requireValue(String value, String name) {
         if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException(name + " must be provided and cannot be blank.");
+            throw new IllegalArgumentException("Missing required value: " + name);
         }
         return value.trim();
     }

@@ -3,12 +3,13 @@ package kashi.koi.auth;
 import java.time.Duration;
 import java.time.Instant;
 
+// current token
 public record Token(
         String token,
-        Instant expiresAt
-) {
-    public Token(String token, long expiresIn) {
-        this(token, Instant.now().plusSeconds(expiresIn));
+        Instant expiresAt) {
+
+    public Token(String token, long expiresInSeconds) {
+        this(token, Instant.now().plusSeconds(expiresInSeconds));
     }
 
     public boolean isExpired() {
@@ -16,9 +17,9 @@ public record Token(
         return now.isAfter(expiresAt) || now.equals(expiresAt);
     }
 
-    public boolean isExpiringSoon(Duration thresholdSeconds) {
+    public boolean isExpiringSoon(Duration threshold) {
         Instant now = Instant.now();
-        return now.plus(thresholdSeconds).isAfter(expiresAt);
+        return now.plus(threshold).isAfter(expiresAt);
     }
 
     public boolean isValid() {

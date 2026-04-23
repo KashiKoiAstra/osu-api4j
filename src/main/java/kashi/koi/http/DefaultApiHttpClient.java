@@ -1,11 +1,5 @@
 package kashi.koi.http;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import kashi.koi.auth.AuthConfig;
-import kashi.koi.auth.OAuthTokenProvider;
-import kashi.koi.exception.OsuApiException;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -16,6 +10,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.StringJoiner;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import kashi.koi.auth.AuthConfig;
+import kashi.koi.auth.OAuthTokenProvider;
+import kashi.koi.exception.OsuApiException;
+
 public class DefaultApiHttpClient implements ApiHttpClient {
 
     private final AuthConfig config;
@@ -23,32 +24,44 @@ public class DefaultApiHttpClient implements ApiHttpClient {
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
 
-    public DefaultApiHttpClient(AuthConfig config, HttpClient httpClient, ObjectMapper objectMapper) {
+    public DefaultApiHttpClient(AuthConfig config, OAuthTokenProvider tokenProvider, HttpClient httpClient,
+                                ObjectMapper objectMapper) {
         this.config = config;
+        this.tokenProvider = tokenProvider;
         this.httpClient = httpClient;
         this.objectMapper = objectMapper;
-        this.tokenProvider = new OAuthTokenProvider(config, httpClient, objectMapper);
     }
 
     @Override
-    public <T> T get(String path, java.util.Map<String, String> queryParams, Class<T> responseType) throws OsuApiException {
+    public <T> T get(String path, Map<String, String> queryParams, Class<T> responseType) {
         URI uri = buildUri(path, queryParams);
-        HttpResponse<String> response = sendGetResponseWithAuthRetry(uri);
+        HttpResponse<String> response = sendGetWithAuthRetry(uri);
 
         if (response.statusCode() < 200 || response.statusCode() >= 300) {
-            throw new OsuApiException("GET request to " + uri +
-                            " failed with status code " + response.statusCode() +
-                            ": " + response.body());
+            throw new OsuApiException(
+                    "Request failed: GET " + uri + " status=" + response.statusCode(),
+                    response.statusCode(),
+                    response.body());
         }
 
         try {
             return objectMapper.readValue(response.body(), responseType);
         } catch (JsonProcessingException e) {
-            throw new OsuApiException("Failed to parse response from " + uri);
+            throw new OsuApiException("Failed to parse response from " + uri, e);
         }
     }
 
-    private HttpResponse<String> sendGetRequest(URI uri, String token) {
+    private HttpResponse<String> sendGetWithAuthRetry(URI uri) {
+        HttpResponse<String> first = sendGet(uri, tokenProvider.getToken());
+        if (first.statusCode() != 401) {
+            return first;
+        }
+
+        tokenProvider.invalidateToken();
+        return sendGet(uri, tokenProvider.getToken());
+    }
+
+    private HttpResponse<String> sendGet(URI uri, String token) {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(uri)
                 .header("Accept", "application/json")
@@ -60,45 +73,40 @@ public class DefaultApiHttpClient implements ApiHttpClient {
         try {
             return httpClient.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
         } catch (IOException | InterruptedException e) {
-            if (e instanceof InterruptedException) Thread.currentThread().interrupt();
-            throw new RuntimeException("Failed to send GET request to " + uri, e);
+            if (e instanceof InterruptedException) {
+                Thread.currentThread().interrupt();
+            }
+            throw new OsuApiException("HTTP request failed: GET " + uri, e);
         }
     }
 
-    private HttpResponse<String> sendGetResponseWithAuthRetry(URI uri) {
-        HttpResponse<String> first = sendGetRequest(uri, tokenProvider.getToken());
-        if (first.statusCode() != 401) {
-            return first;
-        }
-
-        tokenProvider.invalidateToken();
-        return sendGetRequest(uri, tokenProvider.getToken());
-    }
-
-    private URI buildUri(String path, Map<String ,String> queryParams) {
-        String uriBase = config.apiBaseUrl().endsWith("/")
+    private URI buildUri(String path, Map<String, String> queryParams) {
+        String normalizedBase = config.apiBaseUrl().endsWith("/")
                 ? config.apiBaseUrl().substring(0, config.apiBaseUrl().length() - 1)
                 : config.apiBaseUrl();
-
-        String uriPath = path.startsWith("/") ? path : "/" + path;
+        String normalizedPath = path.startsWith("/") ? path : "/" + path;
 
         if (queryParams == null || queryParams.isEmpty()) {
-            return URI.create(uriBase + uriPath);
+            return URI.create(normalizedBase + normalizedPath);
         }
 
-        StringJoiner queryJoiner = new StringJoiner("&");
+        StringJoiner joiner = new StringJoiner("&");
         for (Map.Entry<String, String> entry : queryParams.entrySet()) {
-            if (entry.getValue() == null || entry.getValue().isBlank()) continue; // skip null or blank values
-
-            queryJoiner.add(encode(entry.getKey()) + "=" + encode(entry.getValue()));
+            if (entry.getValue() == null || entry.getValue().isBlank()) {
+                continue;
+            }
+            joiner.add(encode(entry.getKey()) + "=" + encode(entry.getValue()));
         }
 
-        String query = queryJoiner.toString();
-        if (query.isBlank()) return URI.create(uriBase + uriPath);
-        return URI.create(uriBase + uriPath + "?" + query);
+        String query = joiner.toString();
+        if (query.isBlank()) {
+            return URI.create(normalizedBase + normalizedPath);
+        }
+
+        return URI.create(normalizedBase + normalizedPath + "?" + query);
     }
 
-    private static String encode(String val) {
-        return URLEncoder.encode(val, StandardCharsets.UTF_8);
+    private static String encode(String value) {
+        return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
 }

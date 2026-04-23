@@ -1,7 +1,5 @@
 package kashi.koi.auth;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -11,7 +9,9 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 
-public class OAuthTokenProvider{
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class OAuthTokenProvider {
 
     private final AuthConfig config;
     private final HttpClient httpClient;
@@ -44,6 +44,7 @@ public class OAuthTokenProvider{
             token = requestNewToken();
             return token.token();
         }
+
     }
 
     public String refreshToken() {
@@ -57,8 +58,11 @@ public class OAuthTokenProvider{
         token = null;
     }
 
+    private boolean isTokenValid(Token candidate) {
+        return candidate != null && candidate.isValid() && !candidate.isExpiringSoon(refreshThreshold);
+    }
+
     private Token requestNewToken() {
-        // build https request form
         String formData = "client_id=" + encode(config.clientId()) +
                 "&client_secret=" + encode(config.clientSecret()) +
                 "&grant_type=client_credentials" +
@@ -75,11 +79,14 @@ public class OAuthTokenProvider{
         try {
             response = httpClient.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
         } catch (IOException | InterruptedException e) {
-            if (e instanceof InterruptedException) Thread.currentThread().interrupt();
+            if (e instanceof InterruptedException) {
+                Thread.currentThread().interrupt();
+            }
             throw new RuntimeException("Failed to request new token", e);
         }
         if (response.statusCode() != 200) {
-            throw new RuntimeException("Failed to request new token: " + response.statusCode() + " - " + response.body());
+            throw new RuntimeException(
+                    "Failed to request new token: HTTP " + response.statusCode() + " - " + response.body());
         }
 
         TokenResponse tokenResponse;
@@ -88,14 +95,11 @@ public class OAuthTokenProvider{
         } catch (IOException e) {
             throw new RuntimeException("Failed to parse token response", e);
         }
+
         return new Token(tokenResponse.accessToken(), tokenResponse.expiresIn());
     }
 
-    private boolean isTokenValid(Token token) {
-        return token != null && token.isValid() && !token.isExpiringSoon(refreshThreshold);
-    }
-
-    private static String encode(String val){
-        return URLEncoder.encode(val, StandardCharsets.UTF_8);
+    private static String encode(String value) {
+        return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
 }

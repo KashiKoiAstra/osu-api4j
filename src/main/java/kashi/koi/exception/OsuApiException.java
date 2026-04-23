@@ -1,7 +1,6 @@
 package kashi.koi.exception;
 
-public class OsuApiException extends Exception{
-
+public class OsuApiException extends RuntimeException {
     private final int statusCode;
     private final String responseBody;
 
@@ -23,11 +22,11 @@ public class OsuApiException extends Exception{
         this.responseBody = responseBody;
     }
 
-    public int getStatusCode() {
+    public int statusCode() {
         return statusCode;
     }
 
-    public String getResponseBody() {
+    public String responseBody() {
         return responseBody;
     }
 }
