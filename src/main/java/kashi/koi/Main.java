@@ -1,11 +1,10 @@
 package kashi.koi;
 
-import kashi.koi.api.beatmaps.GetBeatmapRequest;
-import kashi.koi.api.beatmaps.GetUserBeatmapScoreRequest;
-import kashi.koi.api.users.GetUserRequest;
+import kashi.koi.http.QueryMap;
 import kashi.koi.model.beatmaps.BeatmapExtended;
 import kashi.koi.model.beatmaps.BeatmapUserScore;
 import kashi.koi.model.users.UserExtended;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -15,28 +14,15 @@ public class Main {
 
         OsuClient client = OsuClient.createDefault();
 
-        UserExtended user = client.users().getUser(
-                userId,
-                null,
-                GetUserRequest.builder()
-                        .build()
-        );
+        UserExtended user = client.users().getUser(userId, null, null);
 
-        BeatmapExtended beatmap = client.beatmaps().getBeatmap(
-                beatmapId,
-                GetBeatmapRequest.builder()
-                        .mode("mania")
-                        .build()
-        );
+        BeatmapExtended beatmap = client.beatmaps().getBeatmap(beatmapId,
+                new QueryMap().put("mode", "mania"));
 
-        BeatmapUserScore score = client.beatmaps().getUserBeatmapScore(
-                beatmapId,
-                userId,
-                GetUserBeatmapScoreRequest.builder()
-                        .mode("mania")
-                        .legacyOnly(0)
-                        .build()
-        );
+        BeatmapUserScore score = client.beatmaps().getUserBeatmapScore(beatmapId, userId,
+                new QueryMap()
+                        .put("mode", "mania")
+                        .put("legacy_only", 0));
 
         if (beatmap != null && score != null && user != null) {
             System.out.println("User: " + user.username());

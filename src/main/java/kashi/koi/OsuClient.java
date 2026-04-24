@@ -1,6 +1,8 @@
 package kashi.koi;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import kashi.koi.api.beatmaps.BeatmapsApi;
@@ -13,7 +15,6 @@ import kashi.koi.http.DefaultApiHttpClient;
 
 import java.net.http.HttpClient;
 
-// sdk facade and single entry for all API groups
 public class OsuClient {
 
     private final BeatmapsApi beatmapsApi;
@@ -29,13 +30,15 @@ public class OsuClient {
     }
 
     public static OsuClient createDefault(AuthConfig config) {
-        HttpClient httpClient = HttpClient.newHttpClient();
         ObjectMapper objectMapper = new ObjectMapper();
-        OAuthTokenProvider tokenProvider = new OAuthTokenProvider(config, httpClient, objectMapper);
-        ApiHttpClient apiHttpClient = new DefaultApiHttpClient(config, tokenProvider, httpClient, objectMapper);
-
+        objectMapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        HttpClient httpClient = HttpClient.newHttpClient();
+        OAuthTokenProvider tokenProvider = new OAuthTokenProvider(config, httpClient, objectMapper);
+        ApiHttpClient apiHttpClient = new DefaultApiHttpClient(config, tokenProvider, httpClient, objectMapper);
 
         return new OsuClient(
                 new BeatmapsApi(apiHttpClient),
@@ -43,12 +46,6 @@ public class OsuClient {
         );
     }
 
-    public BeatmapsApi beatmaps() {
-        return beatmapsApi;
-    }
-
-    public UsersApi users() {
-        return usersApi;
-    }
-
+    public BeatmapsApi beatmaps() { return beatmapsApi; }
+    public UsersApi users() { return usersApi; }
 }
