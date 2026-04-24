@@ -1,5 +1,11 @@
 package kashi.koi.http;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import kashi.koi.auth.AuthConfig;
+import kashi.koi.auth.OAuthTokenProvider;
+import kashi.koi.exception.OsuApiException;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -10,12 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.StringJoiner;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import kashi.koi.auth.AuthConfig;
-import kashi.koi.auth.OAuthTokenProvider;
-import kashi.koi.exception.OsuApiException;
+// osu! web api v2 wrapper for Java
 
 public class DefaultApiHttpClient implements ApiHttpClient {
 
@@ -30,6 +31,10 @@ public class DefaultApiHttpClient implements ApiHttpClient {
         this.tokenProvider = tokenProvider;
         this.httpClient = httpClient;
         this.objectMapper = objectMapper;
+    }
+
+    private static String encode(String value) {
+        return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
 
     @Override
@@ -104,9 +109,5 @@ public class DefaultApiHttpClient implements ApiHttpClient {
         }
 
         return URI.create(normalizedBase + normalizedPath + "?" + query);
-    }
-
-    private static String encode(String value) {
-        return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
 }

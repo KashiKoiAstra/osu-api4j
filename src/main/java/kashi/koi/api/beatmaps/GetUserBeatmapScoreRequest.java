@@ -5,6 +5,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
+
+/**
+ * @param legacyOnly (optional) Whether or not to exclude lazer scores. Defaults to 0.
+ * @param mode       (optional) The Ruleset to get scores for.
+ * @param mods       (optional) An array of matching Mods, or none // TODO.
+ */
 public record GetUserBeatmapScoreRequest(
         Integer legacyOnly,
         String mode,
@@ -20,6 +26,20 @@ public record GetUserBeatmapScoreRequest(
         return new Builder();
     }
 
+    private static String joinMods(List<String> mods) {
+        if (mods == null || mods.isEmpty()) {
+            return "";
+        }
+
+        StringJoiner joiner = new StringJoiner(",");
+        for (String mod : mods) {
+            if (mod != null && !mod.isBlank()) {
+                joiner.add(mod.trim());
+            }
+        }
+        return joiner.toString();
+    }
+
     public Map<String, String> toQueryParams() {
         Map<String, String> queryParams = new LinkedHashMap<>();
         if (legacyOnly != null) {
@@ -33,20 +53,6 @@ public record GetUserBeatmapScoreRequest(
             queryParams.put("mods", modsValue);
         }
         return queryParams;
-    }
-
-    private static String joinMods(List<String> mods) {
-        if (mods == null || mods.isEmpty()) {
-            return "";
-        }
-
-        StringJoiner joiner = new StringJoiner(",");
-        for (String mod : mods) {
-            if (mod != null && !mod.isBlank()) {
-                joiner.add(mod.trim());
-            }
-        }
-        return joiner.toString();
     }
 
     public static final class Builder {

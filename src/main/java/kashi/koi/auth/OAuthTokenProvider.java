@@ -1,5 +1,7 @@
 package kashi.koi.auth;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -8,8 +10,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class OAuthTokenProvider {
 
@@ -29,6 +29,10 @@ public class OAuthTokenProvider {
 
     public OAuthTokenProvider(AuthConfig config) {
         this(config, HttpClient.newHttpClient(), new ObjectMapper());
+    }
+
+    private static String encode(String value) {
+        return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
 
     public String getToken() {
@@ -97,9 +101,5 @@ public class OAuthTokenProvider {
         }
 
         return new Token(tokenResponse.accessToken(), tokenResponse.expiresIn());
-    }
-
-    private static String encode(String value) {
-        return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
 }

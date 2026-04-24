@@ -4,19 +4,28 @@ import kashi.koi.http.ApiHttpClient;
 import kashi.koi.model.beatmaps.BeatmapExtended;
 import kashi.koi.model.beatmaps.BeatmapUserScore;
 
-public class BeatmapApi {
+public class BeatmapsApi {
 
     private final ApiHttpClient httpClient;
 
-    public BeatmapApi(ApiHttpClient httpClient) {
+    public BeatmapsApi(ApiHttpClient httpClient) {
         this.httpClient = httpClient;
     }
 
-    public BeatmapUserScore getUserBeatmapScore(String beatmapId, String userId, GetUserBeatmapScoreRequest request) {
-        if (beatmapId == null || beatmapId.isEmpty()) {
+    /**
+     * Return a User's score on a Beatmap
+     * GET /beatmaps/{beatmap}/scores/users/{user}
+     *
+     * @param beatmapId ID of the Beatmap.
+     * @param userId    ID of the User.
+     * @param request   Query Parameters
+     * @return a BeatmapUserScore object containing the user's score for the specified beatmaps, or null if not found
+     */
+    public BeatmapUserScore getUserBeatmapScore(Integer beatmapId, Integer userId, GetUserBeatmapScoreRequest request) {
+        if (beatmapId == null) {
             throw new IllegalArgumentException("beatmapId must be a non-empty string");
         }
-        if (userId == null || userId.isEmpty()) {
+        if (userId == null) {
             throw new IllegalArgumentException("userId must be a non-empty string");
         }
 
@@ -28,8 +37,16 @@ public class BeatmapApi {
         return httpClient.get(path, effectiveRequest.toQueryParams(), BeatmapUserScore.class);
     }
 
-    public BeatmapExtended getBeatmap(String beatmapId, GetBeatmapRequest request) {
-        if (beatmapId == null || beatmapId.isEmpty()) {
+    /**
+     * Gets beatmap data for the specified beatmap ID.
+     * GET /beatmaps/{beatmap}
+     *
+     * @param beatmapId The ID of the beatmap.
+     * @param request   Query Parameters
+     * @return a BeatmapExtended object containing the beatmaps data, or null if not found
+     */
+    public BeatmapExtended getBeatmap(Integer beatmapId, GetBeatmapRequest request) {
+        if (beatmapId == null) {
             throw new IllegalArgumentException("beatmapId must be a non-empty string");
         }
 
