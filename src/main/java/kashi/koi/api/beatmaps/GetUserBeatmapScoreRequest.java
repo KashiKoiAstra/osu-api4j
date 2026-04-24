@@ -9,7 +9,7 @@ import java.util.StringJoiner;
 /**
  * @param legacyOnly (optional) Whether or not to exclude lazer scores. Defaults to 0.
  * @param mode       (optional) The Ruleset to get scores for.
- * @param mods       (optional) An array of matching Mods, or none // TODO.
+ * @param mods       (optional) An array of matching Mods, or none.
  */
 public record GetUserBeatmapScoreRequest(
         Integer legacyOnly,
