@@ -12,10 +12,6 @@ import java.util.Map;
 public record GetUserRequest(
         String key
 ) {
-
-    public GetUserRequest {
-    }
-
     public static Builder builder() {
         return new Builder();
     }
@@ -23,7 +19,7 @@ public record GetUserRequest(
     public Map<String, String> toQueryParams() {
         return Map.of(); // No query parameters for this request
     }
-    
+
     public static final class Builder {
         private String key;
 
