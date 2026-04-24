@@ -18,9 +18,9 @@ public class UsersApi {
      * @param request URL Parameters
      * @return Array of KudosuHistory.
      */
-    public KudosuHistory getUserKudosu(Integer userId, GetUserKudosuRequest request) {
+    public KudosuHistory[] getUserKudosu(Integer userId, GetUserKudosuRequest request) {
         if (userId == null) {
-            throw new IllegalArgumentException("userId must be a non-empty string");
+            throw new IllegalArgumentException("userId must not be null");
         }
 
         GetUserKudosuRequest effectiveRequest = request == null
@@ -28,6 +28,6 @@ public class UsersApi {
                 : request;
 
         String path = "/users/" + userId + "/kudosu";
-        return httpClient.get(path, effectiveRequest.toQueryParams(), KudosuHistory.class);
+        return httpClient.get(path, effectiveRequest.toQueryParams(), KudosuHistory[].class);
     }
 }
