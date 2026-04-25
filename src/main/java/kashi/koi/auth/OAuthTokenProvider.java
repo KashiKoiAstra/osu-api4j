@@ -16,6 +16,7 @@ public class OAuthTokenProvider {
     private final AuthConfig config;
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
+    private final TokenStorage tokenStorage;
     private final Object lock = new Object();
     private final Duration refreshThreshold = Duration.ofSeconds(10);
 
@@ -25,6 +26,8 @@ public class OAuthTokenProvider {
         this.config = config;
         this.httpClient = httpClient;
         this.objectMapper = objectMapper;
+        this.tokenStorage = new TokenStorage(TokenStorage.defaultPath(), objectMapper);
+        this.token = tokenStorage.load();
     }
 
     public OAuthTokenProvider(AuthConfig config) {
@@ -100,6 +103,8 @@ public class OAuthTokenProvider {
             throw new RuntimeException("Failed to parse token response", e);
         }
 
-        return new Token(tokenResponse.accessToken(), tokenResponse.expiresIn());
+        Token newToken = new Token(tokenResponse.accessToken(), tokenResponse.expiresIn());
+        tokenStorage.save(newToken);
+        return newToken;
     }
 }

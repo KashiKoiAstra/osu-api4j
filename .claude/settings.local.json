@@ -3,7 +3,8 @@
     "allow": [
       "Bash(chmod +w *)",
       "Bash(mvn compile *)",
-      "Bash(mvn exec:java -Dexec.mainClass=\"kashi.koi.Main\")"
+      "Bash(mvn exec:java -Dexec.mainClass=\"kashi.koi.Main\")",
+      "Bash(mvn test *)"
     ]
   }
 }

@@ -37,4 +37,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
-/src/main/resources/auth.properties
+
+### osu! client secrets ###
+src/main/resources/auth.properties
+src/main/resources/token.json

@@ -14,10 +14,6 @@ public class GetUserScoresTest {
         if (scores != null) {
             for (Score score : scores) {
 
-                if (score.beatmap().version().contains("4K")) {
-                    continue;
-                }
-
                 System.out.printf(
                         "%s (%s) - %s [%s] | PP: %.2f | Accuracy: %.2f \n",
                         score.beatmapset().source(),
