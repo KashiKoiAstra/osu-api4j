@@ -2,15 +2,13 @@ package kashi.koi.model.beatmaps;
 
 import java.time.OffsetDateTime;
 
-
-/*
- * very mysterious
- * the "id" field is said to be Integer in the official docs, but it overflows Integer, so we use Long
- */
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record Score(
         Float accuracy,
-        Integer beatmapId,
+        Beatmap beatmap,
+        Beatmapset beatmapset,
+        @JsonProperty("beatmap_id") Integer beatmapId,
         Integer bestId,
         Integer buildId,
         Integer classicTotalScore,
@@ -23,7 +21,7 @@ public record Score(
         Integer legacyTotalScore,
         Integer maxCombo,
         ScoreStatistics maximumStatistics,
-        Mod[] mods,
+        String[] mods,
         Boolean passed,
         Integer playlistItemId,
         Float pp,
@@ -37,6 +35,5 @@ public record Score(
         ScoreStatistics statistics,
         Integer totalScore,
         String type,
-        Integer userId
-){
+        Integer userId) {
 }

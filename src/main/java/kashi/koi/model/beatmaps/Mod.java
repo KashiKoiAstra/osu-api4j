@@ -1,9 +1,6 @@
 package kashi.koi.model.beatmaps;
 
-
-
 public record Mod(
-        String acronym,
-        ModSetting[] settings
-) {
+                String acronym,
+                ModSetting[] settings) {
 }

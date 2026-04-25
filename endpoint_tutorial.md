@@ -1,8 +1,10 @@
-## How to create a new endpoint
+# How to create a new endpoint
 
-example: Scores API（GET /scores/{score}/{mode?}）：
+For example, we create a Scores API (GET /scores/{score}/{mode?}):
 
-### Step 1：Create a data model (if not exists)
+### Step 1：Create a data model (if need)
+
+As we know, the osu! web api will return an HTTP form,  so we need a compatible data structure.
 
 ```.java
   // model/scores/ScoreInfo.java
@@ -20,6 +22,8 @@ example: Scores API（GET /scores/{score}/{mode?}）：
 ```
 
 ### Step 2：Create an API entry point
+
+According to the API type, put it in the appropriate class, for easier unified management.
 
 ```.java
   // api/scores/ScoresApi.java
@@ -46,7 +50,9 @@ example: Scores API（GET /scores/{score}/{mode?}）：
   }
 ```
 
-### Step 3：Add it to OsuClient
+### Step 3：Add the entry point to OsuClient.java
+
+The OsuClient class is used as the SDK facade.
 
 ```.java
   // OsuClient.java - Add code in these position:
@@ -72,6 +78,8 @@ example: Scores API（GET /scores/{score}/{mode?}）：
 ```
 
 ### Step 4：Call it
+
+Hello, osu!
 
 ```.java
   ScoreInfo s = client.scores().getScore(12345, "osu",
