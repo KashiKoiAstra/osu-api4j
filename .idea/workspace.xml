@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36c24148-5c91-4d25-981f-2395532304c8" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="36c24148-5c91-4d25-981f-2395532304c8" name="更改" comment="init" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -120,6 +117,7 @@
       <workItem from="1777037779197" duration="3873000" />
       <workItem from="1777082129740" duration="3983000" />
       <workItem from="1777127388004" duration="336000" />
+      <workItem from="1777127941336" duration="94000" />
     </task>
     <task id="LOCAL-00001" summary="api workflow complete">
       <option name="closed" value="true" />
@@ -209,7 +207,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777042204005</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="init">
+      <option name="closed" value="true" />
+      <created>1777128026490</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1777128026490</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,7 +239,8 @@
     <MESSAGE value="more api support" />
     <MESSAGE value="update" />
     <MESSAGE value="Auto-write update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Auto-write update" />
+    <MESSAGE value="init" />
+    <option name="LAST_COMMIT_MESSAGE" value="init" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
