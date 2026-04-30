@@ -2,7 +2,9 @@ package kashi.koi.api.users;
 
 import kashi.koi.http.ApiHttpClient;
 import kashi.koi.http.QueryMap;
+import kashi.koi.model.beatmaps.BeatmapsetExtended;
 import kashi.koi.model.beatmaps.Score;
+import kashi.koi.model.users.BeatmapPlaycount;
 import kashi.koi.model.users.KudosuHistory;
 import kashi.koi.model.users.UserExtended;
 
@@ -51,7 +53,7 @@ public class UsersApi {
 
     /**
      * GET /users/{user}/scores/{type}
-     * 
+     *
      * @param userId ID of the user.
      * @param type   Score type. Must be one of these: {@code best}, {@code firsts},
      *               {@code recent}.
@@ -71,5 +73,40 @@ public class UsersApi {
         }
         return httpClient.get("/users/{user}/scores/{type}",
                 Map.of("user", userId, "type", type.trim()), query, Score[].class);
+    }
+
+    /**
+     * GET /users/{user}/beatmapsets/most_played
+     *
+     * @param userId ID of the user.
+     * @param query  Query parameters. Supported keys: {@code limit} (int),
+     *               {@code offset} (int).
+     */
+    public BeatmapPlaycount[] getUserMostPlayedBeatmaps(Integer userId, QueryMap query) {
+        if (userId == null)
+            throw new IllegalArgumentException("userId must not be null");
+        return httpClient.get("/users/{user}/beatmapsets/most_played",
+                Map.of("user", userId), query, BeatmapPlaycount[].class);
+    }
+
+    /**
+     * GET /users/{user}/beatmapsets/{type}
+     *
+     * @param userId ID of the user.
+     * @param type   Beatmapset type. Must be one of:
+     *               {@code favourite},
+     *               {@code graveyard}, {@code loved}, {@code pending},
+     *               {@code ranked},
+     *               {@code guest}, {@code nominated}.
+     * @param query  Query parameters. Supported keys: {@code limit} (int),
+     *               {@code offset} (int).
+     */
+    public BeatmapsetExtended[] getUserBeatmapsets(Integer userId, String type, QueryMap query) {
+        if (userId == null)
+            throw new IllegalArgumentException("userId must not be null");
+        if (type == null || type.isBlank())
+            throw new IllegalArgumentException("type must not be null or blank");
+        return httpClient.get("/users/{user}/beatmapsets/{type}",
+                Map.of("user", userId, "type", type.trim()), query, BeatmapsetExtended[].class);
     }
 }

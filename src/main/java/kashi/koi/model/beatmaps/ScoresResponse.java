@@ -1,4 +1,6 @@
 package kashi.koi.model.beatmaps;
 
-public record ScoresResponse() {
+public record ScoresResponse(
+        Score[] scores
+) {
 }
