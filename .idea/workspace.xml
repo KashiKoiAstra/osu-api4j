@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="36c24148-5c91-4d25-981f-2395532304c8" name="更改" comment="various apis update">
+      <change afterPath="$PROJECT_DIR$/src/main/java/kashi/koi/auth/TokenStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kashi/koi/OsuClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kashi/koi/OsuClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kashi/koi/auth/AuthConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kashi/koi/auth/AuthConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kashi/koi/auth/AuthConfigLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kashi/koi/auth/AuthConfigLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kashi/koi/auth/OAuthTokenProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kashi/koi/auth/OAuthTokenProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kashi/koi/auth/TokenStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kashi/koi/auth/TokenStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/kashi/koi/GetUserScoresTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/kashi/koi/GetUserScoresTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+      <option value="module" />
+      <option value="repository" />
+    </option>
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_D:/resource/osu-api4j" value="3CkwY5svVd8njsKX7aRRLIGcBxU" />
+    </persistenceIdMap>
+  </component>
+  <component name="CopilotUserSelectedChatMode">
+    <option name="chatModeId" value="Agent" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Record" />
+      </list>
+    </option>
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;KashiKoiAstra&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/KashiKoiAstra/osu-api4j.git&quot;,
+    &quot;accountId&quot;: &quot;4cef6f08-d455-4150-9784-f914962d0e1c&quot;
+  }
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/kashi/koi/OsuClient.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="3CkwY5svVd8njsKX7aRRLIGcBxU" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "库",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "rearrange.code.on.save": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true",
+    "应用程序.GetBeatmapsTest.executor": "Run",
+    "应用程序.GetUserBeatmapScoresTest.executor": "Run",
+    "应用程序.GetUserBeatmapsTest.executor": "Run",
+    "应用程序.GetUserScoresTest.executor": "Run",
+    "应用程序.Main.executor": "Run",
+    "应用程序.ScoreQueryTest.executor": "Run",
+    "应用程序.UserMostPlayedBeatmapsTest.executor": "Run"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="36c24148-5c91-4d25-981f-2395532304c8" name="更改" comment="" />
+      <created>1776942920591</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1776942920591</updated>
+      <workItem from="1776942922241" duration="7877000" />
+      <workItem from="1776957316340" duration="3563000" />
+      <workItem from="1776960941455" duration="322000" />
+      <workItem from="1776995364008" duration="7898000" />
+      <workItem from="1777005245873" duration="2095000" />
+      <workItem from="1777010912446" duration="523000" />
+      <workItem from="1777011942650" duration="2459000" />
+      <workItem from="1777014462783" duration="4368000" />
+      <workItem from="1777026840352" duration="1660000" />
+      <workItem from="1777033637932" duration="32000" />
+      <workItem from="1777033688732" duration="273000" />
+      <workItem from="1777033972331" duration="164000" />
+      <workItem from="1777034173443" duration="619000" />
+      <workItem from="1777037779197" duration="3873000" />
+      <workItem from="1777082129740" duration="3983000" />
+      <workItem from="1777127388004" duration="336000" />
+      <workItem from="1777127941336" duration="94000" />
+      <workItem from="1777467488806" duration="2230000" />
+      <workItem from="1777471330110" duration="1825000" />
+      <workItem from="1777475824196" duration="257000" />
+      <workItem from="1777476093735" duration="32000" />
+      <workItem from="1777476140856" duration="3275000" />
+      <workItem from="1777517240404" duration="671000" />
+      <workItem from="1777523880788" duration="922000" />
+    </task>
+    <task id="LOCAL-00001" summary="api workflow complete">
+      <option name="closed" value="true" />
+      <created>1776943260703</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1776943260703</updated>
+    </task>
+    <task id="LOCAL-00002" summary="update auth configuration and enhance score model with new properties">
+      <option name="closed" value="true" />
+      <created>1776946980580</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1776946980580</updated>
+    </task>
+    <task id="LOCAL-00003" summary="more data module support">
+      <option name="closed" value="true" />
+      <created>1776957463037</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1776957463037</updated>
+    </task>
+    <task id="LOCAL-00004" summary="more data module support">
+      <option name="closed" value="true" />
+      <created>1776957497800</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1776957497800</updated>
+    </task>
+    <task id="LOCAL-00005" summary="more api support">
+      <option name="closed" value="true" />
+      <created>1776960643072</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1776960643072</updated>
+    </task>
+    <task id="LOCAL-00006" summary="update">
+      <option name="closed" value="true" />
+      <created>1777000701905</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1777000701905</updated>
+    </task>
+    <task id="LOCAL-00007" summary="update">
+      <option name="closed" value="true" />
+      <created>1777000773880</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1777000773880</updated>
+    </task>
+    <task id="LOCAL-00008" summary="update">
+      <option name="closed" value="true" />
+      <created>1777001982410</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1777001982410</updated>
+    </task>
+    <task id="LOCAL-00009" summary="update">
+      <option name="closed" value="true" />
+      <created>1777016380882</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1777016380882</updated>
+    </task>
+    <task id="LOCAL-00010" summary="update">
+      <option name="closed" value="true" />
+      <created>1777016424685</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1777016424685</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Auto-write update">
+      <option name="closed" value="true" />
+      <created>1777042204005</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1777042204005</updated>
+    </task>
+    <task id="LOCAL-00012" summary="init">
+      <option name="closed" value="true" />
+      <created>1777128026490</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1777128026490</updated>
+    </task>
+    <task id="LOCAL-00013" summary="various apis update">
+      <option name="closed" value="true" />
+      <created>1777517524302</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1777517524303</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="api workflow complete" />
+    <MESSAGE value="update auth configuration and enhance score model with new properties" />
+    <MESSAGE value="more data module support" />
+    <MESSAGE value="more api support" />
+    <MESSAGE value="update" />
+    <MESSAGE value="Auto-write update" />
+    <MESSAGE value="init" />
+    <MESSAGE value="various apis update" />
+    <option name="LAST_COMMIT_MESSAGE" value="various apis update" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>

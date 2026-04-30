@@ -7,8 +7,13 @@ public class GetUserScoresTest {
     public static void main(String[] args) {
 
         int userId = 19970192;
-        OsuClient client = OsuClient.createDefault();
-        Score[] scores = client.users().getUserScores(userId, "best", new QueryMap().put("limit", "100"));
+
+        OsuClient client = OsuClient.builder()
+                .clientId("52276")
+                .clientSecret("Se2L4HGAnXm8uI4wCOtRQxMFjzHKemnTTj5ulGst")
+                .build();
+
+        Score[] scores = client.users().getUserScores(userId, "best", new QueryMap().put("limit", "20"));
 
         if (scores != null) {
             for (Score score : scores) {
@@ -17,8 +22,8 @@ public class GetUserScoresTest {
                         score.pp(),
                         score.accuracy() * 100,
                         score.beatmapset().source(),
-                        score.beatmapset().artist(),
-                        score.beatmapset().title(),
+                        score.beatmapset().artistUnicode(),
+                        score.beatmapset().titleUnicode(),
                         score.beatmap().version());
             }
         }

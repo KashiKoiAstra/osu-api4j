@@ -16,18 +16,22 @@ public class OAuthTokenProvider {
     private final AuthConfig config;
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
-    private final TokenStorage tokenStorage;
+    private final TokenStore tokenStore;
     private final Object lock = new Object();
     private final Duration refreshThreshold = Duration.ofSeconds(10);
 
     private volatile Token token;
 
-    public OAuthTokenProvider(AuthConfig config, HttpClient httpClient, ObjectMapper objectMapper) {
+    public OAuthTokenProvider(AuthConfig config, HttpClient httpClient, ObjectMapper objectMapper, TokenStore tokenStore) {
         this.config = config;
         this.httpClient = httpClient;
         this.objectMapper = objectMapper;
-        this.tokenStorage = new TokenStorage(TokenStorage.defaultPath(), objectMapper);
-        this.token = tokenStorage.load();
+        this.tokenStore = tokenStore;
+        this.token = tokenStore.load();
+    }
+
+    public OAuthTokenProvider(AuthConfig config, HttpClient httpClient, ObjectMapper objectMapper) {
+        this(config, httpClient, objectMapper, new TokenStorage(objectMapper));
     }
 
     public OAuthTokenProvider(AuthConfig config) {
@@ -51,7 +55,6 @@ public class OAuthTokenProvider {
             token = requestNewToken();
             return token.token();
         }
-
     }
 
     public String refreshToken() {
@@ -104,7 +107,7 @@ public class OAuthTokenProvider {
         }
 
         Token newToken = new Token(tokenResponse.accessToken(), tokenResponse.expiresIn());
-        tokenStorage.save(newToken);
+        tokenStore.save(newToken);
         return newToken;
     }
 }

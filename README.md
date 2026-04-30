@@ -1,22 +1,47 @@
 # osu-api4j
 
-### osu! web api v2 wrapper for Java, now WIP
+osu! web api v2 wrapper for Java, now WIP
 
-First you should put your client id and secret in src/main/resources/auth.properties:
+### How to use
 
-```.properties
-client_id=12345
-client_secret=your_client_secret
-tokenUrl = https://osu.ppy.sh/oauth/token
-apiBaseUrl = https://osu.ppy.sh/api/v2
-scope = public
+First, setup your client id and client secret. There're various ways, select one:
+```java
+        // load from environment variables "OSU_CLIENT_ID" and "OSU_CLIENT_SECRET"
+        OsuClient client = OsuClient.createDefault();   
+
+        // builder
+        OsuClient client = OsuClient.builder()
+            .clientId("12345")
+            .clientSecret("...")
+            .build();   
+
+        // custom TokenStore (e.g. database/redis)
+        OsuClient client = OsuClient.builder()
+            .clientId("12345")
+            .clientSecret("...")
+            .tokenStore(myDatabaseTokenStore)
+            .build();
 ```
 
-Then use like this:
+It will fetch access token, and save it to ~/.osu-api4j/token.json by default, and automatically refresh token when expired
+you can also implement your own TokenStore (database/redis)
 
-```.java
-BeatmapExtended beatmap = client.beatmaps().getBeatmap(
-        beatmapId,
-        new QueryMap().put("mode", "mania")
-);
+Then, you can call api methods. For example:
+```java
+        // use QueryMap to build query parameters
+        Score[] scores = client.users().getUserScores(userId, "best", new QueryMap().put("limit", "20"));      
+
+        if (scores != null) {
+            for (Score score : scores) {
+                System.out.printf(
+                        "PP: %.2f | Accuracy: %.2f | %s (%s) - %s [%s]  \n",
+                        score.pp(),
+                        score.accuracy() * 100,
+                        score.beatmapset().source(),
+                        score.beatmapset().artist(),
+                        score.beatmapset().title(),
+                        score.beatmap().version());
+                // this prints your b20
+            }
+        }
 ```

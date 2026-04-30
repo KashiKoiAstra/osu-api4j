@@ -5,24 +5,30 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Instant;
 
-class TokenStorage {
+public class TokenStorage implements TokenStore {
+
+    private static final Path DEFAULT_DIR = Path.of(System.getProperty("user.home"), ".osu-api4j");
 
     private final Path storagePath;
     private final ObjectMapper objectMapper;
 
-    TokenStorage(Path storagePath, ObjectMapper objectMapper) {
+    public TokenStorage(Path storagePath, ObjectMapper objectMapper) {
         this.storagePath = storagePath;
         this.objectMapper = objectMapper;
     }
 
-    static Path defaultPath() {
-        return Paths.get("src", "main", "resources", "token.json");
+    public TokenStorage(ObjectMapper objectMapper) {
+        this(defaultPath(), objectMapper);
     }
 
-    Token load() {
+    public static Path defaultPath() {
+        return DEFAULT_DIR.resolve("token.json");
+    }
+
+    @Override
+    public Token load() {
         if (!Files.exists(storagePath)) {
             return null;
         }
@@ -37,11 +43,20 @@ class TokenStorage {
         }
     }
 
-    void save(Token token) {
+    @Override
+    public void save(Token token) {
         try {
             Files.createDirectories(storagePath.getParent());
             objectMapper.writeValue(storagePath.toFile(),
                     new PersistedToken(token.token(), token.expiresAt().toEpochMilli()));
+        } catch (IOException ignored) {
+        }
+    }
+
+    @Override
+    public void clear() {
+        try {
+            Files.deleteIfExists(storagePath);
         } catch (IOException ignored) {
         }
     }
