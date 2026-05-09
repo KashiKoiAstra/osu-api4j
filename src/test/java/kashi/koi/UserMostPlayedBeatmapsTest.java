@@ -9,10 +9,7 @@ public class UserMostPlayedBeatmapsTest {
     public static void main(String[] args) {
         int userId = 32164055;
 
-        OsuClient client = OsuClient.builder()
-                .clientId("52276")
-                .clientSecret("Se2L4HGAnXm8uI4wCOtRQxMFjzHKemnTTj5ulGst")
-                .build();
+        OsuClient client = OsuClient.createDefault();
 
         BeatmapPlaycount[] beatmaps = client.users().getUserMostPlayedBeatmaps(userId, new QueryMap());
 

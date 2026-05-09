@@ -8,10 +8,7 @@ public class GetUserScoresTest {
 
         int userId = 19970192;
 
-        OsuClient client = OsuClient.builder()
-                .clientId("52276")
-                .clientSecret("Se2L4HGAnXm8uI4wCOtRQxMFjzHKemnTTj5ulGst")
-                .build();
+        OsuClient client = OsuClient.createDefault();
 
         Score[] scores = client.users().getUserScores(userId, "best", new QueryMap().put("limit", "20"));
 
