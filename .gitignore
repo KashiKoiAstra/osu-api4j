@@ -44,4 +44,4 @@ src/main/resources/auth.properties
 src/main/resources/token.json
 
 ### Test ###
-/src/test/java/kashi/koi/
+/src/test/java/kashi/koi/*.*
